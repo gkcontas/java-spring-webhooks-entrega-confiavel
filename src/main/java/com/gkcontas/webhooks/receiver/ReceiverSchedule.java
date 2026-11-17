@@ -23,7 +23,7 @@ public class ReceiverSchedule {
 
     @Scheduled(fixedDelayString = "${webhooks.receiver.poll-interval:200ms}")
     public void process() {
-        processor.processAvailable();
+        processor.topUp();
     }
 
     @Scheduled(fixedDelay = 1, timeUnit = java.util.concurrent.TimeUnit.HOURS)

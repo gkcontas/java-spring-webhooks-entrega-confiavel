@@ -39,8 +39,18 @@ public class InboxRepository {
     }
 
     public void markProcessed(String webhookId) {
-        jdbc.update("update inbox_event set status = 'PROCESSED', processed_at = now() where webhook_id = ?",
-                webhookId);
+        // clock_timestamp, not now(): now() is when the transaction began, before the handler ran.
+        jdbc.update("""
+                update inbox_event set status = 'PROCESSED', processed_at = clock_timestamp() where webhook_id = ?
+                """, webhookId);
+    }
+
+    /** Waiting events, counted up to {@code cap}: the caller only needs to know how many workers to start. */
+    public int countReceived(int cap) {
+        Integer count = jdbc.queryForObject("""
+                select count(*) from (select 1 from inbox_event where status = 'RECEIVED' limit ?) waiting
+                """, Integer.class, cap);
+        return count == null ? 0 : count;
     }
 
     public int purgeProcessedOlderThan(Duration retention) {
