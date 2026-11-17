@@ -3,3 +3,12 @@ webhooks:
     # The dispatcher and the inbox processor are called by the tests, in the
     # order they need, instead of on a timer.
     enabled: false
+  sender:
+    allow-private-targets: true
+    connect-timeout: 500ms
+    request-timeout: 1s
+    lease: 5s
+    max-attempts: 4
+    backoff-base: 1s
+    jitter: NONE
+    instance-id: test-node

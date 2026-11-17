@@ -17,3 +17,9 @@ logging:
   level:
     root: INFO
     com.gkcontas.webhooks: INFO
+
+webhooks:
+  sender:
+    # Local runs deliver to localhost. Leave this false anywhere real: the sender
+    # calls URLs typed by third parties.
+    allow-private-targets: true
