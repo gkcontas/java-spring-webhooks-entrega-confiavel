@@ -1,0 +1,5 @@
+webhooks:
+  scheduling:
+    # The dispatcher and the inbox processor are called by the tests, in the
+    # order they need, instead of on a timer.
+    enabled: false
