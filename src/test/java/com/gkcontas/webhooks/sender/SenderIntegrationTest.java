@@ -35,10 +35,17 @@ public abstract class SenderIntegrationTest extends IntegrationTestBase {
     @Autowired
     protected EventService events;
 
+    @Autowired
+    protected com.gkcontas.webhooks.receiver.ReceiverBehavior behavior;
+
     @BeforeEach
     void cleanState() {
         RECEIVER.resetAll();
-        jdbc.execute("truncate delivery_attempt, delivery, webhook_event, subscription cascade");
+        jdbc.execute("""
+                truncate delivery_attempt, delivery, webhook_event, subscription,
+                         inbox_event, inbound_request, naive_processing cascade
+                """);
+        behavior.reset(java.time.Duration.ZERO);
     }
 
     protected Subscription subscribe(String path) {

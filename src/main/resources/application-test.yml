@@ -12,3 +12,10 @@ webhooks:
     backoff-base: 1s
     jitter: NONE
     instance-id: test-node
+  receiver:
+    # Two accepted secrets, as during a rotation on the receiver's side.
+    secrets:
+      - whsec_yzDrPREmhjqoS+ZYLsQeHz0HOSncBCw5PaDAR55IgaM=
+      - whsec_Cf/yy9VYgj0TPs6Pl2feerg/9+pHDQUrVzBYmpkFbqY=
+    tolerance: 5m
+    workers: 4

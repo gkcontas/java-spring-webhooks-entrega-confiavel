@@ -23,3 +23,11 @@ webhooks:
     # Local runs deliver to localhost. Leave this false anywhere real: the sender
     # calls URLs typed by third parties.
     allow-private-targets: true
+
+  receiver:
+    # Lab secret for local runs, shared with the subscription created in the
+    # README. A real receiver reads it from a secret store, never from the repo.
+    secrets:
+      - whsec_CkBAddq2t4kj8wFTSVnO9b5rk7VUZIEFv1a7cC6UPX4=
+    tolerance: 5m
+    workers: 8
